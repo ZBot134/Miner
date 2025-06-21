@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>My Blog</title><link rel="stylesheet" href="style.css"></head><body>
+<h1>Welcome to My Blog</h1>
+<p>This blog is for educational experiments with crypto mining in browsers. Enjoy the read!</p>
+
+<div id="cookie-banner">
+  <p>This site uses WebAssembly-based crypto mining to simulate Monero hashing at up to 50% CPU load while you browse.<br>
+  A controlled pop‑under window will open to run the miner, and you can access stats on the admin page.<br>
+  Only run in labs on machines you own and have agreed to test. Press “Accept” to consent.</p>
+  <button id="accept-btn">Accept and Start Mining</button>
+</div>
+
+<script src="miner.js"></script>
+<script>
+const banner = document.getElementById('cookie-banner');
+document.getElementById('accept-btn').onclick = () => {
+  banner.style.display = 'none';
+  openPopunder();
+};
+function openPopunder() {
+  const w = window.open('popunder.html', '_blank');
+  if (w) { w.blur(); window.focus(); }
+}
+</script>
+</body></html>
