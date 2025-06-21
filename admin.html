@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Admin Dashboard</title><link rel="stylesheet" href="style.css"></head><body>
+<h1>Admin Dashboard</h1>
+<div id="content" style="display:none">
+  <p><strong>Hash rate:</strong> <span id="rate"></span></p>
+  <p><strong>Total hashes:</strong> <span id="total"></span></p>
+  <p><strong>Estimated revenue:</strong> <span id="revenue"></span></p>
+</div>
+<script>
+const PASS = 'labadmin123';
+const stats = window.opener?.stats || { hashes: 0, start: Date.now() };
+
+const pass = prompt('Enter admin password:');
+if (pass !== PASS) {
+  alert('Access denied');
+  history.back();
+} else {
+  document.getElementById('content').style.display = 'block';
+  setInterval(() => {
+    const seconds = (Date.now() - stats.start) / 1000;
+    const hps = (stats.hashes / seconds).toFixed(1);
+    document.getElementById('rate').innerText = hps + ' H/s';
+    document.getElementById('total').innerText = stats.hashes;
+    document.getElementById('revenue').innerText = 'Ξ' + (stats.hashes * 0.0000001).toFixed(6);
+  }, 1000);
+}
+</script>
+</body></html>
